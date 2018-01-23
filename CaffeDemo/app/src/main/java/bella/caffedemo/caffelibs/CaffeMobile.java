@@ -2,6 +2,7 @@ package bella.caffedemo.caffelibs;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.util.Log;
 
 import java.nio.ByteBuffer;
@@ -44,8 +45,9 @@ public class CaffeMobile {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         options.inPremultiplied = false;
-        Bitmap bitmap = BitmapFactory.decodeFile(file_name, options);
-
+        //Bitmap bitmap = BitmapFactory.decodeFile(file_name, options);
+        Bitmap bitmap_resize = BitmapFactory.decodeFile(file_name, options);
+        Bitmap bitmap = getZoomImage(bitmap_resize,28,28);
         // Copy bitmap pixels to buffer
         ByteBuffer argb_buf = ByteBuffer.allocate(bitmap.getByteCount());
         bitmap.copyPixelsToBuffer(argb_buf);
@@ -64,5 +66,25 @@ public class CaffeMobile {
                 + Integer.toHexString((image.pixels[0] << 24 & 0xff000000) | (image.pixels[1] << 16 & 0xff0000)
                 | (image.pixels[2] << 8 & 0xff00) | (image.pixels[3] & 0xff) ));
         return image;
+    }
+
+    //resize bitmap width:28xp height:28xp
+    public static Bitmap getZoomImage(Bitmap orgBitmap,double newWidth,double newHeight){
+        if(null==orgBitmap){
+            return null;
+        }
+        if(newWidth<=0||newHeight<=0){
+            return null;
+        }
+
+        float width=orgBitmap.getWidth();
+        float height=orgBitmap.getHeight();
+        Matrix matrix=new Matrix();
+        float scaleWidth=((float) newWidth)/width;
+        float scaleHeight=((float) newHeight)/height;
+        matrix.postScale(scaleWidth,scaleHeight);
+        Log.i(TAG,"width="+width+";height="+height+";scaleWidth="+scaleWidth+";scaleHeight="+scaleHeight);
+        Bitmap bitmap =Bitmap.createBitmap(orgBitmap,0,0,(int)width,(int)height,matrix,true);
+        return bitmap;
     }
 }

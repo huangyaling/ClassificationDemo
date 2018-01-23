@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d(LOG_TAG,"button click");
                 final TextView tv = (TextView) findViewById(R.id.Console);
-                tv.append("\nCaffe inferring...\n");
+                load_caffe.append("\nCaffe inferring...\n");
                 final Handler myHandler = new Handler(){
                     @Override
                     public void handleMessage(Message msg) {
