@@ -36,6 +36,7 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity {
     final int REQUST_CODE=001;
     final int CLASSIFICATION=0;
+    final int CHARTTEST=1;
     private GridView mGridView;
     List<Map<String, Object>> listItem = new ArrayList<Map<String, Object>>();
     private int[] gv_image;
@@ -84,6 +85,9 @@ public class HomeActivity extends AppCompatActivity {
                 switch (position){
                     case CLASSIFICATION:
                         startActivity(new Intent(HomeActivity.this,MainActivity.class));
+                        break;
+                    case CHARTTEST:
+                        //startActivity(new Intent(HomeActivity.this,LineChartActivity.class));
                         break;
                 }
             }

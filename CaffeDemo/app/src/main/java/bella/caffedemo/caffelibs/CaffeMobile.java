@@ -17,8 +17,10 @@ public class CaffeMobile {
     public native void setBlasThreadNum(int numThreads);
     public native int inputChannels();
     public native int inputWidth();
+    //public native int hello();
     public native int inputHeight();
     private native float[] predict(byte[] bitmap, int channels, float[]mean);
+
 
     public float[] predictImage(String fileName, float[] mean) {
         CaffeImage image = readImage(fileName);
